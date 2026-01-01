@@ -41,9 +41,9 @@ LLD stands for Low level design it focuses more on class-level/component-level d
 
 
 ## 3. Networking Basics IP, DNS, and routing
-IP		 -- Internet Protocol  	---  identifies what devices are communicating
-DNS		 -- Domain Name System  ---  tells you where to go (via IP resolution)
-Routing  	 -- routing 			---	 decides how to get there
+IP		 -- Internet Protocol  	---  identifies what devices are communicating<br />
+DNS		 -- Domain Name System  ---  tells you where to go (via IP resolution)<br />
+Routing  	 -- routing 			---	 decides how to get there<br />
 
 
 | Component | Purpose | Example Function | Layer in OSI Model |
