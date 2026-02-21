@@ -85,7 +85,7 @@ This follows a request–response communication loop central to all client-serve
 
 
 ## 8. Stateful vs Stateless Architectures
-Servers can manage client interactions as stateful or stateless, affecting scalability and resource management.sjsu+1
+Servers can manage client interactions as stateful or stateless, affecting scalability and resource management.
 | Feature             | Stateful                                                                   | Stateless                                                     |
 |---------------------|----------------------------------------------------------------------------|---------------------------------------------------------------|
 | **Definition**      | Server remembers clients and their session data [sjsu][1]                  | Server treats each request independently [sjsu][1]            |
