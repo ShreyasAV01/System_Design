@@ -118,7 +118,7 @@ Servers can manage client interactions as stateful or stateless, affecting scala
 [1]: https://www.cs.sjsu.edu/~pearce/oom/ood/distArch/server.htm
 
 ## 9. REST gRPC and JSON
-REST (Representational State Transfer) is a stateless architectural style for building web services that operate over HTTP. It uses resources (URLs) and standard HTTP verbs:<br />
+**REST (Representational State Transfer)** is a stateless architectural style for building web services that operate over HTTP. It uses resources (URLs) and standard HTTP verbs:<br />
 &emsp;•	GET – Retrieve data<br />
 &emsp;•	POST – Create new data<br />
 &emsp;•	PUT – Update existing data<br />
@@ -145,7 +145,7 @@ REST APIs allow interoperability between systems via lightweight, text-based com
 &emsp;• Cacheable<br />
 
 **⭐ Core REST Principles**<br />
-1️⃣ Client–Server Separation
+**1️⃣ Client–Server Separation**
 
 				Client → UI
 				Server → Logic + Data
@@ -153,7 +153,7 @@ REST APIs allow interoperability between systems via lightweight, text-based com
 &emsp;• Separate deployment<br />
 &emsp;• Better maintainability<br />
 
-2️⃣ Stateless Communication <br />
+**2️⃣ Stateless Communication** <br />
 Every request contains all required information, Server stores no client session.<br />
 
 	Request 1 → independent
@@ -163,7 +163,7 @@ Every request contains all required information, Server stores no client session
 &emsp;• Load balancer friendly<br />
 &emsp;• Fault tolerant<br />
 
-3️⃣ Resource-Based Design<br />
+**3️⃣ Resource-Based Design**<br />
 Everything is a resource<br />
 
 	/users
@@ -177,7 +177,7 @@ Everything is a resource<br />
 | Delete    | DELETE      |
 
 
-4️⃣ Uniform Interface<br />
+**4️⃣ Uniform Interface**<br />
 Standard API design:<br />
 
 	GET /users/101<br />
@@ -186,7 +186,7 @@ Standard API design:<br />
 &emsp;• Easier integrations<br />
 &emsp;• Faster development<br />
 
-5️⃣ Cacheable Responses<br />
+**5️⃣ Cacheable Responses**<br />
 Server can mark responses cacheable.<br /> 
 Cache-Control: max-age=3600<br />
 
@@ -195,7 +195,7 @@ Cache-Control: max-age=3600<br />
 &emsp;• Lower latency<br />
 Used heavily by: CDNs, Edge systems, Large-scale platforms<br />
 
-6️⃣ Layered System Architecture<br />
+**6️⃣ Layered System Architecture**<br />
 Client doesn’t know if request goes through:<br />
 
 	Client → CDN → Gateway → Load Balancer → Service
@@ -204,29 +204,29 @@ System impact:<br />
 &emsp;• Scalability layers<br />
 &emsp;• Observability layers<br />
 
-📦 What is JSON?<br />
+**📦 What is JSON?**<br />
 JSON (JavaScript Object Notation) is a lightweight format for exchanging data between systems.<br />
-Why JSON Is Used in System Design<br />
+**Why JSON Is Used in System Design**<br />
 ✔ Lightweight  --> Small payload → faster network transfer.<br />
 ✔ Human readable --> Easy debugging.<br />
 ✔ Language independent --> Works with Java, Python, JS, Go, etc.<br />
 ✔ Easy parsing --> Built-in libraries everywhere.<br />
 
-🤝 How REST + JSON Work Together<br />
+**🤝 How REST + JSON Work Together**<br />
 Typical Flow<br />
 
 	Client → REST API request
 	Server → returns JSON response
 	
-⚡ System Design Tradeoffs of REST + JSON<br />
-Advantages<br />
+**⚡ System Design Tradeoffs of REST + JSON**<br />
+**Advantages**<br />
 &emsp;• Simple<br />
 &emsp;• Scalable<br />
 &emsp;• Stateless<br />
 &emsp;• Easy integration<br />
 &emsp;• Widely supported<br />
 
-Limitations <br />
+**Limitations** <br />
 ❌ JSON size larger than binary protocols → More bandwidth.<br />
 ❌ Multiple requests for related data → Over-fetching / under-fetching (Why GraphQL exists.)<br />
 ❌ No strict schema by default → Validation needed.<br />
@@ -239,7 +239,7 @@ An operation is idempotent if performing it multiple times produces the same res
 	10 same requests → same result
 No side effects from retries.<br />
 
-🧠 Why Idempotency Exists<br />
+**🧠 Why Idempotency Exists?**<br />
 In distributed systems:<br />
 &emsp;• Network failures happen<br />
 &emsp;• Timeouts occur<br />
@@ -248,9 +248,9 @@ In distributed systems:<br />
 
 Without idempotency → duplicate operations<br />
 
-🏗️ How Systems Implement Idempotency<br />
+**🏗️ How Systems Implement Idempotency**<br />
 
-1️⃣ Idempotency Keys (Most Common)<br />
+**1️⃣ Idempotency Keys (Most Common)**<br />
 	&emsp;Client sends unique request ID<br />
 
 	Idempotency-Key: payment-123
@@ -258,19 +258,19 @@ Without idempotency → duplicate operations<br />
 	ignores duplicates
 Used by companies like Stripe payment APIs<br />
 
-2️⃣ Unique Constraints in Database<br />
+**2️⃣ Unique Constraints in Database**<br />
 Example:<br />
 
 	order_id UNIQUE
 Duplicate inserts fail safely.<br />
 
-3️⃣ Upsert Operations<br />
+**3️⃣ Upsert Operations**<br />
 Insert or update if exists<br />
 Used in:<br />
 caching<br />
 user profile updates<br />
 
-4️⃣ HTTP Method Design<br />
+**4️⃣ HTTP Method Design**<br />
 Some HTTP methods are naturally idempotent:<br />
 | Method | Idempotent? |
 | ------ | ----------- |
@@ -279,21 +279,22 @@ Some HTTP methods are naturally idempotent:<br />
 | DELETE | ✅ Yes       |
 | POST   | ❌ No        |
 
-🏢 Where Idempotency is Critical<br />
-Payments<br />
-Order creation<br />
-Banking systems<br />
-Distributed messaging<br />
-Event processing<br />
-Retry mechanisms<br />
-Microservices communication<br />
+
+**🏢 Where Idempotency is Critical**<br />
+	&emsp;Payments<br />
+	&emsp;Order creation<br />
+	&emsp;Banking systems<br />
+	&emsp;Distributed messaging<br />
+	&emsp;Event processing<br />
+	&emsp;Retry mechanisms<br />
+	&emsp;Microservices communication<br />
 
 
 ## ⭐ Rate Limiting<br />
-Limiting how many requests a client can make in a time period.<br />
-eg: 100 requests per minute per user<br />
+&emsp;Limiting how many requests a client can make in a time period.<br />
+&emsp;eg: 100 requests per minute per user<br />
 
-Without rate limiting:<br />
+&emsp;Without rate limiting:<br />
 &emsp;• Server overload<br />
 &emsp;• DDoS attacks<br />
 &emsp;• API abuse<br />
@@ -316,21 +317,21 @@ Usually implemented at:<br />
 
 **⚙️ Rate Limiting Algorithms** <br />
 **1️⃣ Token Bucket (Most Common)**<br />
-Tokens added at fixed rate<br />
-Request consumes token<br />
-No token → reject<br />
+	&emsp;Tokens added at fixed rate<br />
+	&emsp;Request consumes token<br />
+	&emsp;No token → reject<br />
 
 **2️⃣ Fixed Window Counter**<br />
-100 requests per minute<br />
-Simple but burst issues at window boundaries.<br />
+	&emsp;100 requests per minute<br />
+	&emsp;Simple but burst issues at window boundaries.<br />
 
 **3️⃣ Sliding Window**<br />
-More accurate rate tracking.<br />
-Used in high-scale systems.<br />
+	&emsp;More accurate rate tracking.<br />
+	&emsp;Used in high-scale systems.<br />
 
 **4️⃣ Leaky Bucket**<br />
-Requests processed at fixed rate.<br />
-Smooths traffic.<br />
+	&emsp;Requests processed at fixed rate.<br />
+	&emsp;Smooths traffic.<br />
 
 Response When Limit Exceeded --> HTTP 429 Too Many Requests --> Retry-After: 60<br />
 
@@ -343,7 +344,7 @@ Response When Limit Exceeded --> HTTP 429 Too Many Requests --> Retry-After: 60<
 &emsp;• Messaging services<br />
 
 ## ⭐ Proxy vs Reverse Proxy
-A proxy server sits between client and internet and forwards client requests to external servers.<br />
+ &emsp;A proxy server sits between client and internet and forwards client requests to external servers.<br />
 
 	Client → Proxy → Internet Server
 👉 Proxy → represents the client<br />
@@ -442,7 +443,7 @@ Load balancing distributes incoming requests across multiple servers to prevent 
 	Server 3
 
 **⚙️ Load Balancing Algorithms** <br />
-1️⃣ Round Robin (Most Basic)<br />
+**1️⃣ Round Robin (Most Basic)**<br />
 
 	Req1 → Server1
 	Req2 → Server2
@@ -455,15 +456,15 @@ Pros<br />
 Cons<br />
 &emsp;•	Doesn’t consider server capacity.<br />
 
-2️⃣ Least Connections<br />
+**2️⃣ Least Connections**<br />
 	&emsp; Send request to server with fewer active connections.<br />
 	&emsp; Better for uneven workloads.<br />
 
-3️⃣ IP Hash<br />
+**3️⃣ IP Hash**<br />
 	&emsp; Same client IP → same server<br />
 	&emsp; Used when session consistency required.<br />
 
-4️⃣ Weighted Load Balancing<br />
+**4️⃣ Weighted Load Balancing**<br />
 	&emsp; Servers with higher capacity get more traffic.<br />
 	&emsp; Powerful server → more requests<br />
 
