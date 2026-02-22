@@ -350,10 +350,10 @@ Response When Limit Exceeded --> HTTP 429 Too Many Requests --> Retry-After: 60<
 👉 Proxy → represents the client<br />
 
 **Why Forward Proxy Exists**<br />
-1️⃣ Hide client identity (privacy) --> Server cannot see real user IP.<br />
-2️⃣ Access control / restrictions --> Block websites in company networks.<br />
-3️⃣ Request filtering --> Prevent malicious access.<br />
-4️⃣ Caching --> Store frequently accessed content<br />
+**1️⃣ Hide client identity (privacy)** --> Server cannot see real user IP.<br />
+**2️⃣ Access control / restrictions** --> Block websites in company networks.<br />
+**3️⃣ Request filtering** --> Prevent malicious access.<br />
+**4️⃣ Caching** --> Store frequently accessed content<br />
 
 **🏢 Real-World Example**<br />
 Corporate Network<br />
@@ -373,34 +373,34 @@ A reverse proxy sits in front of servers and handles client requests before forw
 
 **Why Reverse Proxy Exists? **<br />
 Reverse proxy solves many production problems.<br />
-⭐ 1️⃣ Load Balancing --> Distributes traffic across servers.<br />
+**⭐ 1️⃣ Load Balancing** --> Distributes traffic across servers.<br />
 
 	Client → Reverse Proxy
 	           ↓
 	       Server1 Server2 Server3
-⭐ 2️⃣ Hide Backend Infrastructure (Security) --> Internet cannot see real servers<br />
+**⭐ 2️⃣ Hide Backend Infrastructure (Security)** --> Internet cannot see real servers<br />
 Protects:<br />
 	&emsp;IP addresses<br />
 	&emsp;architecture<br />
 	&emsp;internal services<br />
 
-⭐ 3️⃣ SSL/TLS Termination<br />
+**⭐ 3️⃣ SSL/TLS Termination**<br />
 		&emsp;HTTPS handled at proxy<br />
 		&emsp;Backend uses HTTP<br />
 		&emsp;Benefits:<br />
 				&emsp;lower CPU load on servers<br />
 				&emsp;centralized certificate management<br />
 
-⭐ 4️⃣ Caching Responses --> Reduces backend load.<br />
+**⭐ 4️⃣ Caching Responses** --> Reduces backend load.<br />
 Store frequent responses → faster performance<br />
 
-⭐ 5️⃣ Authentication / Rate Limiting<br />
+**⭐ 5️⃣ Authentication / Rate Limiting**<br />
 		&emsp;Central control point for:<br />
 				&emsp;auth<br />
 				&emsp;rate limiting<br />
 				&emsp;request validation<br />
 
-⭐ 6️⃣ API Gateway Behavior<br />
+**⭐ 6️⃣ API Gateway Behavior**<br />
 		&emsp;In microservices Acts as entry point:<br />
 	
 	Client → Reverse Proxy → Multiple Services
@@ -470,12 +470,12 @@ Cons<br />
 
 
 **🏗️ Types of Load Balancers (Architecture Level)** <br />
-1️⃣ Layer 4 Load Balancer (Transport Level) --> Fast but less intelligent<br />
+**1️⃣ Layer 4 Load Balancer (Transport Level)** --> Fast but less intelligent<br />
 	&emsp;Works using:<br />
 		&emsp;•	IP address<br />
 		&emsp;•	TCP/UDP ports<br />
 	
-2️⃣ Layer 7 Load Balancer (Application Level)<br />
+**2️⃣ Layer 7 Load Balancer (Application Level)**<br />
 	&emsp;Works using:<br />
 		&emsp;•	URL<br />
 		&emsp;•	Headers<br />
@@ -555,17 +555,17 @@ Used for:<br />
 
 
 **⭐ 7️⃣ Cache Write Strategies** <br />
-1️⃣ Cache-Aside (Lazy Loading) --> ⭐simple & widely used<br />
+**1️⃣ Cache-Aside (Lazy Loading)** --> ⭐simple & widely used<br />
 
 	1. Check cache
 	2. If miss → fetch from DB
 	3. Store in cache
 
-2️⃣ Write-Through --> strong consistency but slower writes<br />
+**2️⃣ Write-Through** --> strong consistency but slower writes<br />
 
 	Write → cache + database together
 
-3️⃣ Write-Back (Write-Behind) --> very fast writes but risk of data loss<br />
+**3️⃣ Write-Back (Write-Behind)** --> very fast writes but risk of data loss<br />
 	
 		Write → cache
 		Later → database
