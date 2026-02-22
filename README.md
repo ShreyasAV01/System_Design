@@ -352,6 +352,278 @@ Response When Limit Exceeded --> HTTP 429 Too Many Requests --> Retry-After: 60<
 &emsp;• OTP systems<br />
 &emsp;• Messaging services<br />
 
+## ⭐ Proxy vs Reverse Proxy (System Design Perspective)
+
+A proxy server sits between client and internet and forwards client requests to external servers.<br />
+Client → Proxy → Internet Server<br />
+👉 Proxy → represents the client<br />
+
+Why Forward Proxy Exists (System Design Problems It Solves)<br />
+1️⃣ Hide client identity (privacy) --> Server cannot see real user IP.<br />
+2️⃣ Access control / restrictions --> Block websites in company networks.<br />
+3️⃣ Request filtering --> Prevent malicious access.<br />
+4️⃣ Caching --> Store frequently accessed content<br />
+
+🏢 Real-World Example<br />
+Corporate Network<br />
+Employee → Company Proxy → Internet<br />
+
+Company controls:<br />
+which sites employees access<br />
+logging<br />
+security rules<br />
+
+
+⭐ 2️⃣ Reverse Proxy (Much More Important for System Design)<br />
+✅ What is Reverse Proxy?<br />
+A reverse proxy sits in front of servers and handles client requests before forwarding them to backend services.<br />
+👉 Reverse proxy → represents the server<br />
+
+Client → Reverse Proxy → Backend Servers<br />
+
+🧠 Why Reverse Proxy Exists (Major System Design Benefits)<br />
+Reverse proxy solves many production problems.<br />
+⭐ 1️⃣ Load Balancing --> Distributes traffic across servers.<br />
+Client → Reverse Proxy
+           ↓
+       Server1 Server2 Server3<br />
+⭐ 2️⃣ Hide Backend Infrastructure (Security) --> Internet cannot see real servers<br />
+Protects:<br />
+IP addresses<br />
+architecture<br />
+internal services<br />
+
+⭐ 3️⃣ SSL/TLS Termination<br />
+HTTPS handled at proxy<br />
+Backend uses HTTP<br />
+
+Benefits:<br />
+lower CPU load on servers<br />
+centralized certificate management<br />
+
+⭐ 4️⃣ Caching Responses --> Reduces backend load.<br />
+Store frequent responses → faster performance<br />
+
+⭐ 5️⃣ Authentication / Rate Limiting<br />
+Central control point for:<br />
+auth<br />
+rate limiting<br />
+request validation<br />
+
+⭐ 6️⃣ API Gateway Behavior<br />
+In microservices Acts as entry point:<br />
+Client → Reverse Proxy → Multiple Services<br />
+
+🏢 Real Systems Using Reverse Proxy<br />
+Common production tools:<br />
+NGINX<br />
+HAProxy<br />
+Cloudflare (edge reverse proxy + CDN)<br />
+
+
+| Feature                  | Forward Proxy       | Reverse Proxy           |
+| ------------------------ | ------------------- | ----------------------- |
+| Position                 | Client side         | Server side             |
+| Represents               | Client              | Server                  |
+| Hides                    | Client identity     | Server identity         |
+| Used for                 | Privacy, filtering  | Load balancing, scaling |
+| Used by                  | Users/organizations | Production systems      |
+| System design importance | Medium              | Very high               |<br />
+
+🏗️ Real Production Architecture<br />
+Users
+  ↓
+CDN / Reverse Proxy
+  ↓
+Load Balancer
+  ↓
+Application Servers
+  ↓
+Database
+
+
+## ⭐ 2️⃣ Load Balancing (Traffic Distribution)<br />
+Load balancing distributes incoming requests across multiple servers to prevent overload.<br />
+
+Users
+  ↓
+Load Balancer
+  ↓
+Server 1
+Server 2
+Server 3
+
+**⚙️ Load Balancing Algorithms** <br />
+1️⃣ Round Robin (Most Basic)<br />
+Req1 → Server1<br />
+Req2 → Server2<br />
+Req3 → Server3<br />
+Req4 → Server1<br />
+
+Pros<br />
+&emsp;•	Simple<br />
+&emsp;•	Equal distribution<br />
+
+Cons<br />
+&emsp;•	Doesn’t consider server capacity.<br />
+
+2️⃣ Least Connections<br />
+Send request to server with fewer active connections.<br />
+Better for uneven workloads.<br />
+
+3️⃣ IP Hash<br />
+Same client IP → same server<br />
+Used when session consistency required.<br />
+
+4️⃣ Weighted Load Balancing<br />
+Servers with higher capacity get more traffic.<br />
+Powerful server → more requests<br />
+
+
+**🏗️ Types of Load Balancers (Architecture Level)** <br />
+1️⃣ Layer 4 Load Balancer (Transport Level)<br />
+Works using:<br />
+&emsp;•	IP address<br />
+&emsp;•	TCP/UDP ports<br />
+Fast but less intelligent.<br />
+
+2️⃣ Layer 7 Load Balancer (Application Level)<br />
+Works using:<br />
+&emsp;•	URL<br />
+&emsp;•	Headers<br />
+&emsp;•	Cookies<br />
+
+
+## Caching<br />
+storing frequently used data in a faster storage layer to reduce access time and server load.<br />
+
+🧠 2️⃣ Why Caching Exists (System Design Problem)<br />
+Databases and services are expensive:<br />
+&emsp;• Slow disk access<br />
+&emsp;• Network latency<br />
+&emsp;• Heavy computation<br />
+&emsp;• High load<br />
+Without caching:<br />
+&emsp;• High response time<br />
+&emsp;• Server overload<br />
+&emsp;• Poor scalability<br />
+
+🏗️ Where Cache Lives in System Architecture<br />
+Client
+  ↓
+CDN / Edge Cache
+  ↓
+Load Balancer
+  ↓
+Application Server
+  ↓
+Cache (Redis/Mem)
+  ↓
+Database
+
+
+
+⭐ Types of Caching<br />
+1️⃣ Client-Side Cache (Browser Cache)<br />
+Stored in: browser / mobile app<br />
+Example: Images, CSS, Static files<br />
+
+2️⃣ CDN / Edge Cache (Global Systems)<br />
+Cache near user geographically.<br />
+Example providers: Cloudflare, Amazon Web Services CDN services<br />
+
+User (India) → Nearby CDN → Cached content<br />
+Used heavily by: streaming platforms, global websites and static content delivery<br />
+
+3️⃣ Application-Level Cache (Most Common in System Design)<br />
+App checks cache before DB:<br />
+App → Cache → Database (if miss)<br />
+Used for:<br />
+&emsp;• user profiles<br />
+&emsp;• sessions<br />
+&emsp;• product data<br />
+&emsp;• frequently accessed queries<br />
+&emsp;• Typically uses:<br />
+&emsp;• in-memory storage<br />
+
+4️⃣ Database Cache / Query Cache<br />
+Database internally caches results.<br />
+Example: repeated SQL queries , indexes<br />
+
+
+⭐ 6️⃣ Cache Eviction Strategies <br />
+Cache memory is limited → old data must be removed.<br />
+
+LRU — Least Recently Used (Most Common) <br />
+Remove least recently accessed data.<br />
+
+LFU — Least Frequently Used<br />
+Remove least accessed data.<br />
+
+TTL — Time To Live<br />
+Auto-expire after time.<br />
+eg : cache expires in 10 minutes<br />
+
+
+**⭐ 7️⃣ Cache Write Strategies** <br />
+1️⃣ Cache-Aside (Lazy Loading) ⭐ Most Used<br />
+
+1. Check cache<br />
+2. If miss → fetch from DB<br />
+3. Store in cache<br />
+
+simple & widely used<br />
+
+2️⃣ Write-Through<br />
+
+Write → cache + database together<br />
+
+strong consistency but slower writes<br />
+
+3️⃣ Write-Back (Write-Behind)<br />
+
+Write → cache<br />
+Later → database<br />
+
+very fast writes but risk of data loss<br />
+
+
+⭐ 9️⃣ When to Use Caching<br />
+
+Use caching when:<br />
+&emsp;• data read frequently<br />
+&emsp;• data changes rarely<br />
+&emsp;• computation expensive<br />
+&emsp;• latency must be low<br />
+
+
+Examples<br />
+&emsp;• Product catalog<br />
+&emsp;• User sessions<br />
+&emsp;• Leaderboards<br />
+&emsp;• Search results<br />
+&emsp;• Static content<br />
+
+🏢 Real System Example<br />
+Streaming Platform Architecture Most traffic never hits backend<br />
+User
+  ↓
+CDN (video cached near user)
+  ↓
+Backend service
+  ↓
+Database
+<br />
+Without cache → DB handles 1M requests<br />
+With cache → DB handles 10k requests
+
+
+
+
+
+
+
+
 
 
 
@@ -449,58 +721,7 @@ To mitigate bottlenecks:<br />
 &emsp;•	Apply sharding to partition data horizontally.<br />
 &emsp;•	Design stateless services for independent scaling.[linkedin](https://www.linkedin.com/pulse/system-design-key-concepts-scalability-saeed-anabtawi--1g0pf)<br />
 
-## ⭐ 2️⃣ Load Balancing (Traffic Distribution)<br />
-Load balancing distributes incoming requests across multiple servers to prevent overload.<br />
 
-Users
-  ↓
-Load Balancer
-  ↓
-Server 1
-Server 2
-Server 3
-
-**⚙️ Load Balancing Algorithms** <br />
-1️⃣ Round Robin (Most Basic)<br />
-Req1 → Server1<br />
-Req2 → Server2<br />
-Req3 → Server3<br />
-Req4 → Server1<br />
-
-Pros<br />
-&emsp;•	Simple<br />
-&emsp;•	Equal distribution<br />
-
-Cons<br />
-&emsp;•	Doesn’t consider server capacity.<br />
-
-2️⃣ Least Connections<br />
-Send request to server with fewer active connections.<br />
-Better for uneven workloads.<br />
-
-3️⃣ IP Hash<br />
-Same client IP → same server<br />
-Used when session consistency required.<br />
-
-4️⃣ Weighted Load Balancing<br />
-Servers with higher capacity get more traffic.<br />
-Powerful server → more requests<br />
-
-
-**🏗️ Types of Load Balancers (Architecture Level)** <br />
-1️⃣ Layer 4 Load Balancer (Transport Level)<br />
-Works using:<br />
-&emsp;•	IP address<br />
-&emsp;•	TCP/UDP ports<br />
-Fast but less intelligent.<br />
-
-2️⃣ Layer 7 Load Balancer (Application Level)<br />
-Works using:<br />
-&emsp;•	URL<br />
-&emsp;•	Headers<br />
-&emsp;•	Cookies<br />
-
-Can route:<br />
 /images → image server<br />
 /api → API server      <br />
 
