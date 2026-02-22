@@ -125,14 +125,16 @@ REST (Representational State Transfer) is a stateless architectural style for bu
 &emsp;•	DELETE – Remove data[toolsqa](https://toolsqa.com/client-server/client-server-architecture-and-model)<br />
 REST APIs allow interoperability between systems via lightweight, text-based communication, often returning JSON objects. They are central to modern web and mobile applications.[algomaster](https://blog.algomaster.io/p/client-server-architecture-explained)<br />
 
-**Example System Design Without REST**  		 **Mobile app → custom TCP protocol → server** <br />
+**Example System Design Without REST**  		<br />
+		**Mobile app → custom TCP protocol → server** <br />
 **Problems:** <br />
 &emsp;• Hard to maintain<br />
 &emsp;• Not scalable<br />
 &emsp;• Not standard<br />
 &emsp;• Tight coupling<br />
 
-**With REST**			**Client → HTTP REST API → Service → Database** <br />
+**With REST**			<br />
+			**Client → HTTP REST API → Service → Database** <br />
 **Benefits:** <br />
 &emsp;• Standard protocol<br />
 &emsp;• Language independent<br />
@@ -225,16 +227,130 @@ Server → returns JSON response<br />
 ⚡ System Design Tradeoffs of REST + JSON<br />
 
 Advantages<br />
-Simple<br />
-Scalable<br />
-Stateless<br />
-Easy integration<br />
-Widely supported<br />
+&emsp;• Simple<br />
+&emsp;• Scalable<br />
+&emsp;• Stateless<br />
+&emsp;• Easy integration<br />
+&emsp;• Widely supported<br />
 
 Limitations (Interview Bonus Points)<br />
 ❌ JSON size larger than binary protocols → More bandwidth.<br />
 ❌ Multiple requests for related data → Over-fetching / under-fetching (Why GraphQL exists.)<br />
 ❌ No strict schema by default → Validation needed.<br />
+
+
+⭐ 1️⃣ Idempotency<br />
+An operation is idempotent if performing it multiple times produces the same result as performing it once.<br />
+
+1 request → same result
+10 same requests → same result
+
+No side effects from retries.<br />
+
+🧠 Why Idempotency Exists (System Design Problem)<br />
+In distributed systems:<br />
+&emsp;• Network failures happen<br />
+&emsp;• Timeouts occur<br />
+&emsp;• Clients retry requests<br />
+&emsp;• Messages may be duplicated<br />
+
+Without idempotency → duplicate operations<br />
+
+🏗️ How Systems Implement Idempotency<br />
+1️⃣ Idempotency Keys (Most Common)<br />
+Client sends unique request ID<br />
+Idempotency-Key: payment-123<br />
+Server:<br />
+stores key + response<br />
+ignores duplicates<br />
+Used by companies like:<br />
+→ Stripe payment APIs.<br />
+
+2️⃣ Unique Constraints in Database<br />
+Example:<br />
+order_id UNIQUE<br />
+Duplicate inserts fail safely.<br />
+
+3️⃣ Upsert Operations<br />
+Insert or update if exists<br />
+Used in:<br />
+caching<br />
+user profile updates<br />
+
+4️⃣ HTTP Method Design<br />
+Some HTTP methods are naturally idempotent:<br />
+
+| Method | Idempotent? |
+| ------ | ----------- |
+| GET    | ✅ Yes       |
+| PUT    | ✅ Yes       |
+| DELETE | ✅ Yes       |
+| POST   | ❌ No        |
+
+🏢 Where Idempotency is Critical<br />
+Payments<br />
+Order creation<br />
+Banking systems<br />
+Distributed messaging<br />
+Event processing<br />
+Retry mechanisms<br />
+Microservices communication<br />
+
+
+⭐ 2️⃣ Rate Limiting<br />
+Limiting how many requests a client can make in a time period.<br />
+eg: 100 requests per minute per user<br />
+
+Without rate limiting:<br />
+&emsp;• Server overload<br />
+&emsp;• DDoS attacks<br />
+&emsp;• API abuse<br />
+&emsp;• Resource starvation<br />
+&emsp;• Unfair usage<br />
+
+
+🏗️ Where Rate Limiting Happens in Architecture<br />
+Client
+  ↓
+API Gateway (rate limit)
+  ↓
+Service
+
+Usually implemented at:<br />
+API gateway<br />
+Load balancer<br />
+Edge/CDN<br />
+Reverse proxy<br />
+
+⚙️ Rate Limiting Algorithms <br />
+1️⃣ Token Bucket (Most Common)<br />
+Tokens added at fixed rate<br />
+Request consumes token<br />
+No token → reject<br />
+
+2️⃣ Fixed Window Counter<br />
+100 requests per minute<br />
+
+Simple but burst issues at window boundaries.<br />
+
+3️⃣ Sliding Window<br />
+More accurate rate tracking.<br />
+Used in high-scale systems.<br />
+
+4️⃣ Leaky Bucket<br />
+Requests processed at fixed rate.<br />
+Smooths traffic.<br />
+
+
+Response When Limit Exceeded --> HTTP 429 Too Many Requests --> Retry-After: 60<br />
+
+🏢 Where Rate Limiting Is Used<br />
+&emsp;• Login APIs<br />
+&emsp;• Payment APIs<br />
+&emsp;• Public APIs<br />
+&emsp;• Search services<br />
+&emsp;• OTP systems<br />
+&emsp;• Messaging services<br />
 
 ## TODO
 
