@@ -379,29 +379,28 @@ Reverse proxy solves many production problems.<br />
 	       Server1 Server2 Server3
 ⭐ 2️⃣ Hide Backend Infrastructure (Security) --> Internet cannot see real servers<br />
 Protects:<br />
-IP addresses<br />
-architecture<br />
-internal services<br />
+	&emsp;IP addresses<br />
+	&emsp;architecture<br />
+	&emsp;internal services<br />
 
 ⭐ 3️⃣ SSL/TLS Termination<br />
-HTTPS handled at proxy<br />
-Backend uses HTTP<br />
-
-Benefits:<br />
-lower CPU load on servers<br />
-centralized certificate management<br />
+		&emsp;HTTPS handled at proxy<br />
+		&emsp;Backend uses HTTP<br />
+		&emsp;Benefits:<br />
+				&emsp;lower CPU load on servers<br />
+				&emsp;centralized certificate management<br />
 
 ⭐ 4️⃣ Caching Responses --> Reduces backend load.<br />
 Store frequent responses → faster performance<br />
 
 ⭐ 5️⃣ Authentication / Rate Limiting<br />
-Central control point for:<br />
-auth<br />
-rate limiting<br />
-request validation<br />
+		&emsp;Central control point for:<br />
+				&emsp;auth<br />
+				&emsp;rate limiting<br />
+				&emsp;request validation<br />
 
 ⭐ 6️⃣ API Gateway Behavior<br />
-In microservices Acts as entry point:<br />
+		&emsp;In microservices Acts as entry point:<br />
 	
 	Client → Reverse Proxy → Multiple Services
 
@@ -453,50 +452,48 @@ Load balancing distributes incoming requests across multiple servers to prevent 
 Pros<br />
 &emsp;•	Simple<br />
 &emsp;•	Equal distribution<br />
-
 Cons<br />
 &emsp;•	Doesn’t consider server capacity.<br />
 
 2️⃣ Least Connections<br />
-Send request to server with fewer active connections.<br />
-Better for uneven workloads.<br />
+	&emsp; Send request to server with fewer active connections.<br />
+	&emsp; Better for uneven workloads.<br />
 
 3️⃣ IP Hash<br />
-Same client IP → same server<br />
-Used when session consistency required.<br />
+	&emsp; Same client IP → same server<br />
+	&emsp; Used when session consistency required.<br />
 
 4️⃣ Weighted Load Balancing<br />
-Servers with higher capacity get more traffic.<br />
-Powerful server → more requests<br />
+	&emsp; Servers with higher capacity get more traffic.<br />
+	&emsp; Powerful server → more requests<br />
 
 
 **🏗️ Types of Load Balancers (Architecture Level)** <br />
-1️⃣ Layer 4 Load Balancer (Transport Level)<br />
-Works using:<br />
-&emsp;•	IP address<br />
-&emsp;•	TCP/UDP ports<br />
-Fast but less intelligent.<br />
-
+1️⃣ Layer 4 Load Balancer (Transport Level) --> Fast but less intelligent<br />
+	&emsp;Works using:<br />
+		&emsp;•	IP address<br />
+		&emsp;•	TCP/UDP ports<br />
+	
 2️⃣ Layer 7 Load Balancer (Application Level)<br />
-Works using:<br />
-&emsp;•	URL<br />
-&emsp;•	Headers<br />
-&emsp;•	Cookies<br />
+	&emsp;Works using:<br />
+		&emsp;•	URL<br />
+		&emsp;•	Headers<br />
+		&emsp;•	Cookies<br />
 
 
 ## Caching<br />
 storing frequently used data in a faster storage layer to reduce access time and server load.<br />
 
  **2️⃣ Why Caching Exists** <br />
-Databases and services are expensive:<br />
-&emsp;• Slow disk access<br />
-&emsp;• Network latency<br />
-&emsp;• Heavy computation<br />
-&emsp;• High load<br />
+&emsp; Databases and services are expensive:<br />
+	&emsp;• Slow disk access<br />
+	&emsp;• Network latency<br />
+	&emsp;• Heavy computation<br />
+	&emsp;• High load<br />
 Without caching:<br />
-&emsp;• High response time<br />
-&emsp;• Server overload<br />
-&emsp;• Poor scalability<br />
+	&emsp;• High response time<br />
+	&emsp;• Server overload<br />
+	&emsp;• Poor scalability<br />
 
 **🏗️ Where Cache Lives in System Architecture**<br />
 
@@ -516,34 +513,34 @@ Without caching:<br />
 
 **⭐ Types of Caching**<br />
 **1️⃣ Client-Side Cache (Browser Cache)**<br />
-Stored in: browser / mobile app<br />
-Example: Images, CSS, Static files<br />
+	&emsp;Stored in: browser / mobile app<br />
+	&emsp;Example: Images, CSS, Static files<br />
 
 **2️⃣ CDN / Edge Cache (Global Systems)**<br />
-Cache near user geographically.<br />
-Example providers: Cloudflare, Amazon Web Services CDN services<br />
+	&emsp;Cache near user geographically.<br />
+	&emsp;Example providers: Cloudflare, Amazon Web Services CDN services<br />
 
 	User (India) → Nearby CDN → Cached content
-Used heavily by: streaming platforms, global websites and static content delivery<br />
+&emsp;Used heavily by: streaming platforms, global websites and static content delivery<br />
 
 **3️⃣ Application-Level Cache (Most Common in System Design)**<br />
-App checks cache before DB:<br />
-App → Cache → Database (if miss)<br />
+	&emsp;App checks cache before DB:<br />
+	
+		App → Cache → Database (if miss)
 Used for:<br />
-&emsp;• user profiles<br />
-&emsp;• sessions<br />
-&emsp;• product data<br />
-&emsp;• frequently accessed queries<br />
-&emsp;• Typically uses:<br />
-&emsp;• in-memory storage<br />
+	&emsp;• user profiles<br />
+	&emsp;• sessions<br />
+	&emsp;• product data<br />
+	&emsp;• frequently accessed queries<br />
+	&emsp;• Typically uses:<br />
+	&emsp;• in-memory storage<br />
 
 **4️⃣ Database Cache / Query Cache**<br />
-Database internally caches results.<br />
-Example: repeated SQL queries , indexes<br />
-
+	&emsp;Database internally caches results.<br />
+	&emsp;Example: repeated SQL queries , indexes<br />
 
 **⭐ 6️⃣ Cache Eviction Strategies** <br />
-Cache memory is limited → old data must be removed.<br />
+	&emsp;Cache memory is limited → old data must be removed.<br />
 
 1. LRU — Least Recently Used (Most Common) <br />
 	&emsp; Remove least recently accessed data.<br />
@@ -574,18 +571,17 @@ Cache memory is limited → old data must be removed.<br />
 
 
 **⭐ 9️⃣ When to Use Caching?**<br />
-Use caching when:<br />
-&emsp;• data read frequently<br />
-&emsp;• data changes rarely<br />
-&emsp;• computation expensive<br />
-&emsp;• latency must be low<br />
-
-Examples<br />
-&emsp;• Product catalog<br />
-&emsp;• User sessions<br />
-&emsp;• Leaderboards<br />
-&emsp;• Search results<br />
-&emsp;• Static content<br />
+	&emsp;Use caching when:<br />
+		&emsp;• data read frequently<br />
+		&emsp;• data changes rarely<br />
+		&emsp;• computation expensive<br />
+		&emsp;• latency must be low<br />
+		&emsp;Examples<br />
+			&emsp;• Product catalog<br />
+			&emsp;• User sessions<br />
+			&emsp;• Leaderboards<br />
+			&emsp;• Search results<br />
+			&emsp;• Static content<br />
 
 **🏢 Real System Example**<br />
 &emsp; Streaming Platform Architecture Most traffic never hits backend<br />
