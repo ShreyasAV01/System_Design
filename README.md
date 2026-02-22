@@ -239,7 +239,7 @@ Limitations (Interview Bonus Points)<br />
 ❌ No strict schema by default → Validation needed.<br />
 
 
-⭐ 1️⃣ Idempotency<br />
+## ⭐ 1️⃣ Idempotency<br />
 An operation is idempotent if performing it multiple times produces the same result as performing it once.<br />
 
 1 request → same result
@@ -297,7 +297,7 @@ Retry mechanisms<br />
 Microservices communication<br />
 
 
-⭐ 2️⃣ Rate Limiting<br />
+## ⭐ 2️⃣ Rate Limiting<br />
 Limiting how many requests a client can make in a time period.<br />
 eg: 100 requests per minute per user<br />
 
@@ -449,7 +449,7 @@ To mitigate bottlenecks:<br />
 &emsp;•	Apply sharding to partition data horizontally.<br />
 &emsp;•	Design stateless services for independent scaling.[linkedin](https://www.linkedin.com/pulse/system-design-key-concepts-scalability-saeed-anabtawi--1g0pf)<br />
 
-⭐ 2️⃣ Load Balancing (Traffic Distribution)<br />
+## ⭐ 2️⃣ Load Balancing (Traffic Distribution)<br />
 Load balancing distributes incoming requests across multiple servers to prevent overload.<br />
 
 Users
@@ -460,7 +460,7 @@ Server 1
 Server 2
 Server 3
 
-⚙️ Load Balancing Algorithms<br />
+**⚙️ Load Balancing Algorithms** <br />
 1️⃣ Round Robin (Most Basic)<br />
 Req1 → Server1<br />
 Req2 → Server2<br />
@@ -487,7 +487,7 @@ Servers with higher capacity get more traffic.<br />
 Powerful server → more requests<br />
 
 
-🏗️ Types of Load Balancers (Architecture Level)<br />
+**🏗️ Types of Load Balancers (Architecture Level)** <br />
 1️⃣ Layer 4 Load Balancer (Transport Level)<br />
 Works using:<br />
 &emsp;•	IP address<br />
