@@ -69,6 +69,27 @@ connectionless protocol emphasizes speed, best suited for real-time applications
 | **Handshake**         | SYN–SYN/ACK–ACK (3-way)                         | None                                            |
 | **Use Cases**         | Web, email, file transfer<br />Commonly used by applications requiring high reliability like HTTP, HTTPS, FTP, SMTP, Telnet | Streaming, gaming, VoIP, DNS<br />Commonly used in DNS, DHCP, VoIP, gaming, streaming where speed matters |
 
+## HTTP vs HTTPS
+**HTTP (HyperText Transfer Protocol)** -- Data transferred in plain text, No encryption, but Vulnerable to middle attacks, Packet sniffing and Data tampering.<br />
+&emsp;Client → Server<br />
+
+System implications:<br />
+&emsp;Faster (no encryption overhead)<br />
+&emsp;Unsafe for production systems<br />
+&emsp;Used mostly in: Internal systems and testing environments<br />
+
+**HTTPS (HTTP Secure) **-- HTTP + TLS/SSL encryption, Data encrypted before transmission hence Provides Confidentiality, Integrity and Authentication.<br />
+&emsp;Client → TLS Handshake → Secure Channel → Server<br />
+
+&emsp;Extra steps:<br />
+&emsp;Certificate verification<br />
+&emsp;Key exchange<br />
+&emsp;Encryption setup<br />
+System implications:<br />
+&emsp;More secure<br />
+&emsp;Slightly more complex<br /> 
+&emsp;Industry standard for public systems.<br />
+
 ## 6. Client-Server Model Overview
 The client-server model is a distributed architecture where clients make requests to access data or perform operations, and servers process those requests and return responses.[synchronet](https://synchronet.net/client-server-model/)
 Examples include:<br />
