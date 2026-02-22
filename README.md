@@ -78,7 +78,7 @@ System implications:<br />
 &emsp;Unsafe for production systems<br />
 &emsp;Used mostly in: Internal systems and testing environments<br />
 
-**HTTPS (HTTP Secure) **-- HTTP + TLS/SSL encryption, Data encrypted before transmission hence Provides Confidentiality, Integrity and Authentication.<br />
+**HTTPS (HTTP Secure)** -- HTTP + TLS/SSL encryption, Data encrypted before transmission hence Provides Confidentiality, Integrity and Authentication.<br />
 &emsp;Client → TLS Handshake → Secure Channel → Server<br />
 
 &emsp;Extra steps:<br />
@@ -117,13 +117,124 @@ Servers can manage client interactions as stateful or stateless, affecting scala
 
 [1]: https://www.cs.sjsu.edu/~pearce/oom/ood/distArch/server.htm
 
-## 9. REST gRPC and 
+## 9. REST gRPC and JSON
 REST (Representational State Transfer) is a stateless architectural style for building web services that operate over HTTP. It uses resources (URLs) and standard HTTP verbs:<br />
 &emsp;•	GET – Retrieve data<br />
 &emsp;•	POST – Create new data<br />
 &emsp;•	PUT – Update existing data<br />
 &emsp;•	DELETE – Remove data[toolsqa](https://toolsqa.com/client-server/client-server-architecture-and-model)<br />
 REST APIs allow interoperability between systems via lightweight, text-based communication, often returning JSON objects. They are central to modern web and mobile applications.[algomaster](https://blog.algomaster.io/p/client-server-architecture-explained)<br />
+
+**Example System Design Without REST**  		 **Mobile app → custom TCP protocol → server** <br />
+**Problems:** <br />
+&emsp;• Hard to maintain<br />
+&emsp;• Not scalable<br />
+&emsp;• Not standard<br />
+&emsp;• Tight coupling<br />
+
+**With REST**			**Client → HTTP REST API → Service → Database** <br />
+**Benefits:** <br />
+&emsp;• Standard protocol<br />
+&emsp;• Language independent<br />
+&emsp;• Easy scaling<br />
+&emsp;• Stateless<br />
+&emsp;• Cacheable<br />
+
+⭐ Core REST Principles<br />
+1️⃣ Client–Server Separation
+
+				Client → UI
+				Server → Logic + Data
+				
+System impact:<br />
+&emsp;• Independent scaling<br />
+&emsp;• Separate deployment<br />
+&emsp;• Better maintainability<br />
+
+2️⃣ Stateless Communication <br />
+Every request contains all required information, Server stores no client session.<br />
+
+Request 1 → independent
+Request 2 → independent
+
+Benefits:<br />
+&emsp;• Easy horizontal scaling<br />
+&emsp;• No session synchronization<br />
+&emsp;• Load balancer friendly<br />
+&emsp;• Fault tolerant<br />
+
+👉 This is why REST is widely used in distributed systems.<br />
+
+3️⃣ Resource-Based Design<br />
+Everything is a resource.<br />
+/users<br />
+/orders<br />
+/products<br />
+| Operation | HTTP Method |
+| --------- | ----------- |
+| Read      | GET         |
+| Create    | POST        |
+| Update    | PUT / PATCH |
+| Delete    | DELETE      |
+
+
+4️⃣ Uniform Interface<br />
+Standard API design:<br />
+
+GET /users/101<br />
+POST /orders<br />
+
+System impact:<br />
+&emsp;• Predictable APIs<br />
+&emsp;• Easier integrations<br />
+&emsp;• Faster development<br />
+
+5️⃣ Cacheable Responses<br />
+Server can mark responses cacheable.<br /> 
+Cache-Control: max-age=3600<br />
+
+System design benefits:<br />
+&emsp;• Reduced server load<br />
+&emsp;• Better performance<br />
+&emsp;• Lower latency<br />
+Used heavily by: CDNs, Edge systems, Large-scale platforms<br />
+
+6️⃣ Layered System Architecture<br />
+Client doesn’t know if request goes through:<br />
+Client → CDN → Gateway → Load Balancer → Service<br />
+
+System impact:<br />
+&emsp;• Security layers<br />
+&emsp;• Scalability layers<br />
+&emsp;• Observability layers<br />
+
+📦 What is JSON?<br />
+✅ JSON = Data Format (Not Architecture)<br />
+JSON (JavaScript Object Notation) is a lightweight format for exchanging data between systems.<br />
+Why JSON Is Used in System Design<br />
+✔ Lightweight  --> Small payload → faster network transfer.<br />
+✔ Human readable --> Easy debugging.<br />
+✔ Language independent --> Works with Java, Python, JS, Go, etc.<br />
+✔ Easy parsing --> Built-in libraries everywhere.<br />
+
+🤝 How REST + JSON Work Together<br />
+Typical Flow<br />
+
+Client → REST API request<br />
+Server → returns JSON response<br />
+⚡ System Design Tradeoffs of REST + JSON<br />
+
+Advantages<br />
+Simple<br />
+Scalable<br />
+Stateless<br />
+Easy integration<br />
+Widely supported<br />
+
+Limitations (Interview Bonus Points)<br />
+❌ JSON size larger than binary protocols → More bandwidth.<br />
+❌ Multiple requests for related data → Over-fetching / under-fetching (Why GraphQL exists.)<br />
+❌ No strict schema by default → Validation needed.<br />
 
 ## TODO
 
