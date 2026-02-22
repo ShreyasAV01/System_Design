@@ -352,6 +352,9 @@ Response When Limit Exceeded --> HTTP 429 Too Many Requests --> Retry-After: 60<
 &emsp;• OTP systems<br />
 &emsp;• Messaging services<br />
 
+
+
+
 ## TODO
 
 ## 10. understanding Latency, Throughput and Availability
@@ -446,8 +449,59 @@ To mitigate bottlenecks:<br />
 &emsp;•	Apply sharding to partition data horizontally.<br />
 &emsp;•	Design stateless services for independent scaling.[linkedin](https://www.linkedin.com/pulse/system-design-key-concepts-scalability-saeed-anabtawi--1g0pf)<br />
 
+⭐ 2️⃣ Load Balancing (Traffic Distribution)<br />
+Load balancing distributes incoming requests across multiple servers to prevent overload.<br />
+
+Users
+  ↓
+Load Balancer
+  ↓
+Server 1
+Server 2
+Server 3
+
+⚙️ Load Balancing Algorithms<br />
+1️⃣ Round Robin (Most Basic)<br />
+Req1 → Server1<br />
+Req2 → Server2<br />
+Req3 → Server3<br />
+Req4 → Server1<br />
+
+Pros<br />
+&emsp;•	Simple<br />
+&emsp;•	Equal distribution<br />
+
+Cons<br />
+&emsp;•	Doesn’t consider server capacity.<br />
+
+2️⃣ Least Connections<br />
+Send request to server with fewer active connections.<br />
+Better for uneven workloads.<br />
+
+3️⃣ IP Hash<br />
+Same client IP → same server<br />
+Used when session consistency required.<br />
+
+4️⃣ Weighted Load Balancing<br />
+Servers with higher capacity get more traffic.<br />
+Powerful server → more requests<br />
 
 
+🏗️ Types of Load Balancers (Architecture Level)<br />
+1️⃣ Layer 4 Load Balancer (Transport Level)<br />
+Works using:<br />
+&emsp;•	IP address<br />
+&emsp;•	TCP/UDP ports<br />
+Fast but less intelligent.<br />
 
+2️⃣ Layer 7 Load Balancer (Application Level)<br />
+Works using:<br />
+&emsp;•	URL<br />
+&emsp;•	Headers<br />
+&emsp;•	Cookies<br />
 
-        
+Can route:<br />
+/images → image server<br />
+/api → API server      <br />
+
+Used in modern architectures.<br />
