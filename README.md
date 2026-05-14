@@ -707,3 +707,5 @@ To mitigate bottlenecks:<br />
 /api → API server      <br />
 
 Used in modern architectures.<br />
+
+
